@@ -1,4 +1,5 @@
-Suppose we have a poll of $n$ people, for which there are $k$ choices available.  Then the number of people that vote for each category is described by the **multinomial distribution** ^[1].
+Suppose we have a poll of $n$ people, for which there are $k$ choices available.  Then the number of people that vote for each category is described by the **multinomial distribution** 
+^[1] .
 
 The goal in a political poll is to estimate the unknown proportion of people $p_i$ we expect to vote for choice $i$ if everyone had the opportunity to vote.  Our best guess at this is 
 just the proportion observed in the poll
@@ -15,13 +16,14 @@ $$
 \end{align}
 $$
 
-As long as $n$ is large and $p_i$ isn't too close to 0 or 1, then we can approximate the error distribution for $\hat{p}_i$ using a normal distribution with the above mean and variance.
+As long as $n$ is large and $p_i$ isn't too close to 0 or 1, then we can approximate the error distribution for $\hat{p}_i$ using a normal distribution with the above mean and variance 
+^[2] .
 
 In order to estimate the **swing** in the vote from left to right, though, we'll want to estimate $p_{left} - p_{right}$.  To do this we need the covariance of $\hat{p}_i$ and $\hat{p}_j$.  We find that this is just
 $$
 \mathsf{cov}[\hat{p}_i, \hat{p}_j] = -\frac{p_i p_j}{n}
 $$
-From this we can estimate the mean and variance of $p_{left} - p_{right}$ as
+From this we can estimate the mean and variance of $\hat{p}_{left} - \hat{p}_{right}$ as
 $$
 \begin{align}
   \mathsf{mean}[\hat{p}_{left} - \hat{p}_{right}] &= p_{left} - p_{right}\\\\
@@ -30,4 +32,6 @@ $$
 \end{align}
 $$
 
-^[1]: When $k=2$ this drops down to the more familiar **binomial distribution**.
+[1]: When $k=2$ this drops down to the more familiar **binomial distribution**.
+
+[2]: A rule of thumb is that $n \hat{p}_i$ and $n(1-\hat{p}_i)$, the number of votes for or against choice $i$, are both larger than 5.
