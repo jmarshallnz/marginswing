@@ -10,8 +10,7 @@ shinyUI(fluidPage(
   hr(),
 
   sidebarLayout(
-    sidebarPanel(
-                 withMathJax(includeMarkdown("propdiff.md"))
+    sidebarPanel(includeMarkdown("intro.md")
     ),
     mainPanel(
       wellPanel(fluidRow(
@@ -42,8 +41,9 @@ shinyUI(fluidPage(
                   ticks = F,
                   value = 6.5)))
       ),
-      plotOutput("plot", height="600px")
+      plotOutput("plot", height="500px")
     )
-  )
+  ),
+  mainPanel(withMathJax(includeMarkdown("propdiff.md")), width=12)
 ))
 
