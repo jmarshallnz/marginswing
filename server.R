@@ -10,7 +10,6 @@ shinyServer(function(input, output) {
   #     when inputs change
   #  2) Its output type is a plot
 
-  prop_no_vote <- 0.035
   design_eff   <- 1
 
   col   <- c("blue", "red")
@@ -51,6 +50,8 @@ shinyServer(function(input, output) {
   ys <- dnorm(x, p[2] + s, se_s)
   ymax <- max(y1, y2)*1.05
 
+  z <- qnorm(0.975)
+
     plot_xmin <- c(25, 75)
     plot_ymax <- 30
     par(mai=c(0.5,0.1,0.1,0.1), mfrow=c(2,1))
@@ -59,13 +60,17 @@ shinyServer(function(input, output) {
     draw_poly(x*100, y2, fade_col(col[2], 0.3))
     abline(v=p[1]*100, col=col[1], lwd=2)
     abline(v=p[2]*100, col=col[2], lwd=2)
-    text(0.05*plot_xmin[1] + 0.95*plot_xmin[2], plot_ymax*0.95, "Left vs Right")
+    xpos <- 0.02*plot_xmin[1] + 0.98*plot_xmin[2]
+    text(xpos, plot_ymax*0.95, "Left vs Right", adj=c(1,0.5))
+    text(xpos, plot_ymax*0.75, sprintf("Right: %2.1f \U00b1 %2.2f", p[1]*100, se_p[1]*100*z), col=col[1], adj=c(1,0.5))
+    text(xpos, plot_ymax*0.85, sprintf("Left: %2.1f \U00b1 %2.2f", p[2]*100, se_p[2]*100*z), col=col[2], adj=c(1,0.5))
 
     plot(NULL,xlab="F", ylab="", xlim=plot_xmin-p[2]*100, ylim=c(0,plot_ymax), type="l", yaxt="n", main="")
     draw_poly((x-p[2])*100, ys, fade_col("black", 0.3))
     abline(v=0, col="black", lwd=2)
     abline(v=s*100, col="black", lwd=1)
-    text(0.05*plot_xmin[1] + 0.95*plot_xmin[2] - p[2]*100, plot_ymax*0.95, "Difference (Swing)")
+    text(xpos - p[2]*100, plot_ymax*0.95, "Difference (Swing)", adj=c(1,0.5))
+    text(xpos - p[2]*100, plot_ymax*0.85, sprintf("Swing: %2.1f \U00b1 %2.2f", s*100, se_s*100*z), adj=c(1,0.5)) 
   })
 
 })
