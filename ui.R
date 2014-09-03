@@ -29,7 +29,7 @@ shinyUI(fluidPage(
                   value = 48)),
                column(3,sliderInput("n",
                   "Number of voters polled:",
-                  min = 0,
+                  min = 100,
                   max = 1200,
                   step = 1,
                   ticks = F,
@@ -42,7 +42,7 @@ shinyUI(fluidPage(
                   ticks = F,
                   value = 6.5)))
       ),
-      plotOutput("plot")
+      plotOutput("plot", height="600px")
     )
   )
 ))

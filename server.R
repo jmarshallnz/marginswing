@@ -32,8 +32,6 @@ shinyServer(function(input, output) {
 
     p <- c(input$right, input$left)*0.01
 
-    cat("p=", p[1], p[2], "n=", n, "\n")
-
     # TODO: validate slider input: Must have right + left < 1
     if (sum(p) > 1) { # limit
     }
@@ -53,19 +51,21 @@ shinyServer(function(input, output) {
   ys <- dnorm(x, p[2] + s, se_s)
   ymax <- max(y1, y2)*1.05
 
+    plot_xmin <- c(25, 75)
+    plot_ymax <- 30
     par(mai=c(0.5,0.1,0.1,0.1), mfrow=c(2,1))
-    plot(NULL,xlab="F", ylab="", xlim=c(xmin, xmax)*100, ylim=c(0,ymax), type="l", yaxt="n", main="")
+    plot(NULL,xlab="F", ylab="", xlim=plot_xmin, ylim=c(0,plot_ymax), type="l", yaxt="n", main="")
     draw_poly(x*100, y1, fade_col(col[1], 0.3))
     draw_poly(x*100, y2, fade_col(col[2], 0.3))
     abline(v=p[1]*100, col=col[1], lwd=2)
     abline(v=p[2]*100, col=col[2], lwd=2)
-    text((0.95*xmax + 0.05*xmin)*100, ymax*0.95, "Left vs Right")
+    text(0.05*plot_xmin[1] + 0.95*plot_xmin[2], plot_ymax*0.95, "Left vs Right")
 
-    plot(NULL,xlab="F", ylab="", xlim=(c(xmin, xmax)-p[2])*100, ylim=c(0,ymax), type="l", yaxt="n", main="")
+    plot(NULL,xlab="F", ylab="", xlim=plot_xmin-p[2]*100, ylim=c(0,plot_ymax), type="l", yaxt="n", main="")
     draw_poly((x-p[2])*100, ys, fade_col("black", 0.3))
     abline(v=0, col="black", lwd=2)
     abline(v=s*100, col="black", lwd=1)
-    text((0.95*xmax + 0.05*xmin - p[2])*100, ymax*0.95, "Difference (Swing)")
+    text(0.05*plot_xmin[1] + 0.95*plot_xmin[2] - p[2]*100, plot_ymax*0.95, "Difference (Swing)")
   })
 
 })
