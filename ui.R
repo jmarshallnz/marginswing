@@ -1,5 +1,5 @@
 library(shiny)
-library(rmarkdown)
+library(markdown)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -41,7 +41,7 @@ shinyUI(fluidPage(
                   ticks = F,
                   value = 6.5)))
       ),
-      plotOutput("plot", height="500px")
+      plotOutput("plot", height="400px")
     )
   ),
   mainPanel(withMathJax(includeMarkdown("propdiff.md")), width=12)

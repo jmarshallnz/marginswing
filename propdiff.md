@@ -1,8 +1,8 @@
 Suppose we have a poll of $n$ people, for which there are $k$ choices available.  Then the number of people that vote for each category is described by the **multinomial distribution** 
 ^[1] .
 
-The goal in a political poll is to estimate the unknown proportion of people $p_i$ we expect to vote for choice $i$ if everyone had the opportunity to vote.  Our best guess at this is 
-just the proportion observed in the poll
+The goal in a political poll is to estimate the unknown proportion of people $p_i$ we expect to vote for choice $i$ if everyone had the opportunity to vote.  Assuming our poll is 
+representative (or has been reweighted accordingly) Our best guess at this is just the proportion observed in the poll
 $$
 \hat{p}_i = \frac{x_i}{n}
 $$
@@ -31,6 +31,11 @@ $$
   &= \frac{p_{left} + p_{right} - (p_{left} - p_{right})^2}{n}
 \end{align}
 $$
+
+The above assumes that the poll is representative.  Unfortunately, few polls are ever representative, they're usually reweighted.  By doing so we effectively reduce the sample size by 
+dividing by a quantity known as the **design effect**.  In the above plots, we've assumed the sample was representative, so has design effect 1.  In reality, it's more likely that the 
+design effect in most New Zealand polls is closer to 2, which would halve the sample size, increasing margins of error by about 40%.  You can simulate this by halving the sample size 
+using the slider above.
 
 [1]: When $k=2$ this drops down to the more familiar **binomial distribution**.
 
