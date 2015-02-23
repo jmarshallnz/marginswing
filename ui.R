@@ -6,7 +6,7 @@ shinyUI(fluidPage(
 
 #  mainPanel(
 
-  titlePanel("The margin of error for the left/right swing", "Swinging at the margin"),
+  titlePanel("The margin of error for a yes/no option", "Swinging at the margin"),
   hr(),
 
   sidebarLayout(
@@ -15,13 +15,13 @@ shinyUI(fluidPage(
     mainPanel(
       wellPanel(fluidRow(
                 column(3,sliderInput("left",
-                  "Percentage of vote for the left:",
+                  "Percentage of vote for the no:",
                   min = 10,
                   max = 100,
                   step = 0.5,
-                  value = 39)),
+                  value = 42)),
                 column(3,sliderInput("right",
-                  "Percentage of vote for the right:",
+                  "Percentage of vote for the yes:",
                   min = 10,
                   max = 100,
                   step = 0.5,
@@ -32,14 +32,14 @@ shinyUI(fluidPage(
                   max = 1200,
                   step = 1,
                   ticks = F,
-                  value = 809)),
+                  value = 1000)),
                column(3,sliderInput("novote",
                   "Percentage of voters with no preference:",
                   min = 0,
                   max = 20,
                   step = 0.5,
                   ticks = F,
-                  value = 6.5)))
+                  value = 10)))
       ),
       plotOutput("plot", height="400px")
     )
