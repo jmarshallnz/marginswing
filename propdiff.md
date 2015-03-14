@@ -37,6 +37,11 @@ dividing by a quantity known as the **design effect**.  In the above plots, we'v
 design effect in most New Zealand polls is closer to 2, which would halve the sample size, increasing margins of error by about 40%.  You can simulate this by halving the sample size 
 using the slider above.
 
+Once we have an estimate for the distribution of the swing from left to 
+right, we can evaluate the chances that the swing will reverse. We do 
+this by looking at what proportion of the distribution is either side of 
+the 0 swing line.
+
 [1]: When $k=2$ this drops down to the more familiar **binomial distribution**.
 
 [2]: A rule of thumb is that $n \hat{p}_i$ and $n(1-\hat{p}_i)$, the number of votes for or against choice $i$, are both larger than 5.

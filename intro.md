@@ -5,6 +5,8 @@ This turns out to be not as simple as we might like, as the proportion of voters
 
 Thus, when estimating the margin of error for a difference, we must take into account the margin of error of each party's support as well as the correlation between them.
 
+Once we've estimated the margin of error, we can use that to predict the chance that the swing reverses.
+
 **Have a play around with the sliders on the right to see how the margin of error for the left (red) and right (blue) change with sample size and with the percentage of voters.**
 
 See below for the maths, and [github for the code](https://github.com/jmarshallnz/marginswing).

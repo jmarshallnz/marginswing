@@ -15,13 +15,13 @@ shinyUI(fluidPage(
     mainPanel(
       wellPanel(fluidRow(
                 column(3,sliderInput("left",
-                  "Percentage of vote for the no:",
+                  "Percentage voting option 1:",
                   min = 10,
                   max = 100,
                   step = 1,
                   value = 42)),
                 column(3,sliderInput("right",
-                  "Percentage of vote for the yes:",
+                  "Percentage voting option 2:",
                   min = 10,
                   max = 100,
                   step = 1,

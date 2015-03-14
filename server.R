@@ -37,7 +37,7 @@ shinyServer(function(input, output) {
 
   se_p <- sqrt(p*(1-p)/n)
 
-  s <- -diff(p)
+  s <- diff(p)
   se_s <- sqrt((sum(p) - diff(p)^2)/n)
 
   # suitable range is +/- 4 s.e.
@@ -63,18 +63,25 @@ shinyServer(function(input, output) {
     abline(v=p[1]*100, col=col[1], lwd=2)
     abline(v=p[2]*100, col=col[2], lwd=2)
     xpos <- plot_xmin[2]
-    text(xpos, plot_ymax*0.95, "Left vs Right", adj=c(1,0.5), cex=1.5)
-    text(xpos, plot_ymax*0.65, sprintf("Right: %2.1f \U00b1 %2.2f", p[1]*100, se_p[1]*100*z), col=col[1], adj=c(1,0.5), cex=plot_cex)
-    text(xpos, plot_ymax*0.80, sprintf("Left: %2.1f \U00b1 %2.2f", p[2]*100, se_p[2]*100*z), col=col[2], adj=c(1,0.5), cex=plot_cex)
+    text(xpos, plot_ymax*0.95, "Option 1 vs Option 2", adj=c(1,0.5), cex=1.5)
+    text(xpos, plot_ymax*0.80, sprintf("Option 1: %2.1f \U00b1 %2.2f", p[2]*100, se_p[2]*100*z), col=col[2], adj=c(1,0.5), cex=plot_cex)
+    text(xpos, plot_ymax*0.65, sprintf("Option 2: %2.1f \U00b1 %2.2f", p[1]*100, se_p[1]*100*z), col=col[1], adj=c(1,0.5), cex=plot_cex)
 
     plot(NULL,xlab="F", ylab="", xlim=plot_xmin-p[2]*100, ylim=c(0,plot_ymax), type="l", yaxt="n", main="")
-    draw_poly((x-p[2])*100, ys, fade_col("black", 0.3))
+    xl <- (x - p[2])*100
+    col <- data.frame(light=c(0.3,0.5), dark=c(0.7,1.0))
+    if (sum(xl >= 0) < length(xl)*0.5)
+      col <- col[2:1,]
+    draw_poly(xl[xl >= 0], ys[xl >= 0], fade_col("black", col$light[1]))
+    draw_poly(xl[xl < 0], ys[xl < 0], fade_col("black", col$light[2]))
     abline(v=0, col="black", lwd=2)
-    text(-0.5, plot_ymax*0.95, sprintf("%2.1f%%", pn*100), adj=c(1,0.5), cex=plot_cex)
-    text(0.5, plot_ymax*0.95, sprintf("%2.1f%%", (1-pn)*100), adj=c(0,0.5), cex=plot_cex)
     abline(v=s*100, col="black", lwd=1)
-    text(xpos - p[2]*100, plot_ymax*0.95, "Difference (Swing)", adj=c(1,0.5), cex=1.5)
+    text(xpos - p[2]*100, plot_ymax*0.95, "Difference (Option 1 - Option 2)", adj=c(1,0.5), cex=1.5)
     text(xpos - p[2]*100, plot_ymax*0.80, sprintf("Swing: %2.1f \U00b1 %2.2f", s*100, se_s*100*z), adj=c(1,0.5), cex=plot_cex) 
+    text(xpos - p[2]*100 - 2, plot_ymax*0.65, "Option 1 wins: ", adj=c(1,0.5), cex=plot_cex, col=fade_col("black", col$dark[1]))
+    text(xpos - p[2]*100 - 2, plot_ymax*0.65, sprintf("%2.1f%%", (1-pn)*100), adj=c(0,0.5), cex=plot_cex, col=fade_col("black", col$dark[1]))
+    text(xpos - p[2]*100 - 2, plot_ymax*0.50, "Option 2 wins: ", adj=c(1,0.5), cex=plot_cex, col=fade_col("black", col$dark[2]))
+    text(xpos - p[2]*100 - 2, plot_ymax*0.50, sprintf("%2.1f%%", pn*100), adj=c(0,0.5), cex=plot_cex, col=fade_col("black", col$dark[2]))
   })
 
 })
