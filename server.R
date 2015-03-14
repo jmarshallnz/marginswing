@@ -48,6 +48,7 @@ shinyServer(function(input, output) {
   y1 <- dnorm(x, p[1], se_p[1])
   y2 <- dnorm(x, p[2], se_p[2])
   ys <- dnorm(x, p[2] + s, se_s)
+  pn <- pnorm(0, s, se_s)
   ymax <- max(y1, y2)*1.05
 
   z <- qnorm(0.975)
@@ -69,6 +70,8 @@ shinyServer(function(input, output) {
     plot(NULL,xlab="F", ylab="", xlim=plot_xmin-p[2]*100, ylim=c(0,plot_ymax), type="l", yaxt="n", main="")
     draw_poly((x-p[2])*100, ys, fade_col("black", 0.3))
     abline(v=0, col="black", lwd=2)
+    text(-0.5, plot_ymax*0.95, sprintf("%2.1f%%", pn*100), adj=c(1,0.5), cex=plot_cex)
+    text(0.5, plot_ymax*0.95, sprintf("%2.1f%%", (1-pn)*100), adj=c(0,0.5), cex=plot_cex)
     abline(v=s*100, col="black", lwd=1)
     text(xpos - p[2]*100, plot_ymax*0.95, "Difference (Swing)", adj=c(1,0.5), cex=1.5)
     text(xpos - p[2]*100, plot_ymax*0.80, sprintf("Swing: %2.1f \U00b1 %2.2f", s*100, se_s*100*z), adj=c(1,0.5), cex=plot_cex) 
