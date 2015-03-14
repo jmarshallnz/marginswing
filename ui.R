@@ -6,7 +6,7 @@ shinyUI(fluidPage(
 
 #  mainPanel(
 
-  titlePanel("The margin of error for a yes/no option", "Swinging at the margin"),
+  titlePanel("The margin of error for competing options", "Swinging at the margin"),
   hr(),
 
   sidebarLayout(
